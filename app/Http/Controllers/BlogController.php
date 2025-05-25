@@ -10,10 +10,34 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        $posts = Post::
+            with('user')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return Inertia::render('Blog/Blog', [
             'posts' => $posts,
+        ]);
+    }
+
+    public function show(string $slug)
+    {
+        $post = Post::
+            with('user')
+            ->where('slug', $slug)
+            ->first();
+
+        return Inertia::render('Blog/Show', [
+            'post' => $post,
+        ]);
+    }
+
+    public function edit(string $slug)
+    {
+        $post = Post::where('slug', $slug)->first();
+
+        return Inertia::render('Blog/Edit', [
+            'post' => $post,
         ]);
     }
 }
