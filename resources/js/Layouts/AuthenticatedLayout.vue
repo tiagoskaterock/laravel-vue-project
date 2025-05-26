@@ -1,25 +1,20 @@
 <script setup>
-  import { ref } from 'vue';
-  import Sidebar from '@/Layouts/Sidebar.vue';
-  import TopNavBar from '@/Layouts/TopNavBar.vue';
+import Sidebar from '@/Layouts/Sidebar.vue';
+import TopNavBar from '@/Layouts/TopNavBar.vue';
+import Footer from '@/Layouts/Footer.vue';
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-100 flex">
 
-    <!-- Sidebar fixada na esquerda -->
+  <div class="wrapper">
+    
+    <TopNavBar />
+
     <Sidebar />
 
-    <!-- Conteúdo principal: nav superior, header e main -->
-    <div class="flex-1 flex flex-col">
-      
-      <TopNavBar />
+    <slot />
 
-      <!-- Page Content -->
-      <main class="flex-1 overflow-auto">
-        <slot />
-      </main>
-    </div>
+    <Footer />
 
   </div>
 

@@ -15,7 +15,7 @@ class BlogController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return Inertia::render('Blog/Blog', [
+        return Inertia::render('Blog/Index', [
             'posts' => $posts,
         ]);
     }
