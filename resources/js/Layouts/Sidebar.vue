@@ -17,6 +17,7 @@ const logout = () => {
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
+          <!-- Dashboard -->
           <li class="nav-item">
             <Link
               title="Dashboard"
@@ -29,6 +30,7 @@ const logout = () => {
             </Link>
           </li>
 
+          <!-- Blog -->
           <li class="nav-item">
             <Link
               title="Blog"
@@ -41,6 +43,20 @@ const logout = () => {
             </Link>
           </li>
 
+          <!-- Clientes -->
+          <li class="nav-item">
+            <Link
+              title="Clientes"
+              href="/admin/clientes"
+              class="nav-link"
+              :class="{ active: route().current('admin.clientes') }"
+            >
+              <i class="nav-icon fas fa-user-tie"></i>
+              <p>Clientes</p>
+            </Link>
+          </li>
+
+          <!-- Perfil -->
           <li class="nav-item">
             <Link
               title="Perfil"

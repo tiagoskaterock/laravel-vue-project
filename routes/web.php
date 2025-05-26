@@ -22,4 +22,6 @@ require __DIR__.'/auth.php';
 
 require __DIR__.'/blog.php';
 
+require __DIR__.'/clientes.php';
+
 require __DIR__.'/dashboard.php';
