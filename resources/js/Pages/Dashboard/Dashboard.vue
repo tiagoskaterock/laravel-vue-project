@@ -2,9 +2,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { Link, router } from '@inertiajs/vue3';
+import DashboardBox from './DashboardBox.vue';
 
 defineProps({
   total_de_posts: Number,
+  total_de_clientes: Number,
 });
 </script>
 
@@ -18,20 +20,11 @@ defineProps({
           <h1 class="text-center mb-4">Dashboard</h1>
 
           <div class="row">
-            <div class="col-lg-3 col-md-6">
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h3>{{ total_de_posts }}</h3>
-                  <p>Posts</p>
-                </div>
-                <div class="icon">
-                  <i class="far fa-newspaper"></i>
-                </div>
-                <Link href="/admin/blog" class="small-box-footer" title="Blog">
-                  Mais informações <i class="fas fa-arrow-circle-right"></i>
-                </Link>
-              </div>
-            </div>
+
+            <DashboardBox :total="total_de_posts" icon="far fa-newspaper" title="Posts" link="/admin/blog" />
+
+            <DashboardBox :total="total_de_clientes" icon="far fa-address-card" title="Clientes" link="/admin/clientes" />
+
           </div>
 
         </div>

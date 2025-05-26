@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
+import TopNavBarLink from './TopNavBarLink.vue';
 
 const showingNavigationDropdown = ref(false);
+
 </script>
 
 <template>
@@ -12,13 +14,11 @@ const showingNavigationDropdown = ref(false);
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
 
-      <li class="nav-item d-none d-sm-inline-block" title="Dashboard">
-        <Link href="/admin/dashboard" class="nav-link">Dashboard</Link>
-      </li>
+      <TopNavBarLink link="/admin/dashboard" title="Dashboard" />
 
-      <li class="nav-item d-none d-sm-inline-block" title="Blog">
-        <Link href="/admin/blog" class="nav-link">Blog</Link>
-      </li>
+      <TopNavBarLink link="/admin/blog" title="Blog" />
+      
+      <TopNavBarLink link="/admin/clientes" title="Clientes" />
 
     </ul>
 
