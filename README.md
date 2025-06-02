@@ -41,3 +41,13 @@ php artisan migrate
 npm install
 npm run dev
 php artisan serve
+```
+
+#### Dashboard
+<img src="public/img/dashboard.png" alt="Dashboard" />
+
+#### Blog
+<img src="public/img/blog.png" alt="Dashboard" />
+
+#### Editar Post
+<img src="public/img/editar-post.png" alt="Dashboard" />
