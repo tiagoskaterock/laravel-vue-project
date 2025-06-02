@@ -64,6 +64,16 @@ const props = defineProps({
                 Por <strong>{{ post.user?.name || 'Desconhecido' }}</strong> ·
                 {{ new Date(post.created_at).toLocaleDateString() }}
               </p>
+
+              <p>
+                <Link
+                  :href="route('admin.blog.edit', { slug: post.slug })"
+                  title="Editar"
+                  class="btn btn-primary"
+                >
+                  <i class="fas fa-edit"></i> Editar
+                </Link>
+              </p>
             </div>
             <!-- fim-card-footer -->
 

@@ -14,4 +14,6 @@ Route::middleware(['auth', 'verified'])
 
         Route::get('{slug}/editar', [BlogController::class, 'edit'])->name('.edit');
 
+        Route::put('{id}/update', [BlogController::class, 'update'])->name('.update');
+
     });
