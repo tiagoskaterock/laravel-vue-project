@@ -30,5 +30,7 @@ defineProps({
         </div>
       </section>
     </div>
+
   </AuthenticatedLayout>
+  
 </template>
