@@ -9,7 +9,13 @@
 
 ## Sobre o Projeto
 
-Este projeto busca ser uma base genérica para outros projetos web usando Vue, Laravel e Inertia. Utiliza o template adminLTE, Bootstrap 4 e traz alguns cadastros prontos por padrão.    
+Este projeto busca ser uma base genérica para outros projetos web usando Vue 3, Laravel 12, MySQL e Inertia. Utiliza o template AdminLTE, Bootstrap 4 e traz alguns cadastros prontos por padrão.
+
+Serve como base de início ou estudo para outros projetos, trazendo o básico como cadastros simples, sistemas de permissões, criação de módulos e etc. 
+
+Está mantido sob a licença DWTFYW (Do Whatever The F*** You Want)
+
+Qualquer ajuda, crítica positiva ou destrutiva, elogios ou xingamentos, contribuições, serão muito bem vindos.
 
 ## Sobre o Laravel
 
@@ -31,17 +37,32 @@ Laravel é um framework PHP moderno com sintaxe elegante. Ele facilita tarefas c
 
 Siga os passos abaixo para rodar o projeto localmente:
 
-```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
-cp .env.example .env
-composer install
-php artisan key:generate
-php artisan migrate
-npm install
-npm run dev
-php artisan serve
-```
+- Clonar o projeto:
+```git clone https://github.com/tiagoskaterock/laravel-vue-project```
+
+- Entrar no diretório
+```cd laravel-vue-project```
+
+- Criar arquivo de configuração .env a partir do .ev.example
+```cp .env.example .env```
+
+- Baixar a pasta vendor com os pacotes necessários para o projeto
+```composer install```
+
+- Gerar uma chave para o projeto
+```php artisan key:generate```
+
+- Rodar as migrações para criar o banco de dados (Necessário ter completado a configuração no arquivo .env)
+```php artisan migrate```
+
+- Instalar pacotes Javascript necessários
+```npm install```
+
+- Iniciar o servidor de desenvolvimento Vite
+```npm run de```
+
+- Iniciar o servidor de desenvolvimento Laravel
+```php artisan serve```
 
 #### Dashboard
 <img src="public/img/dashboard.png" alt="Dashboard" />
