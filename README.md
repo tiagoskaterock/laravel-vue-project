@@ -72,11 +72,17 @@ Siga os passos abaixo para rodar o projeto localmente:
 `/register`
 
 
+#### Login
+<img src="public/img/login.png" alt="Login" />
+
+#### Register
+<img src="public/img/register.png" alt="Register" />
+
 #### Dashboard
 <img src="public/img/dashboard.png" alt="Dashboard" />
 
 #### Blog
-<img src="public/img/blog.png" alt="Dashboard" />
+<img src="public/img/blog.png" alt="Blog" />
 
 #### Editar Post
-<img src="public/img/editar-post.png" alt="Dashboard" />
+<img src="public/img/editar-post.png" alt="Editar Post" />
