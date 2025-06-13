@@ -13,5 +13,6 @@ Route::middleware(['auth', 'verified'])
         Route::get('{slug}', [ClienteController::class, 'show'])->name('.show');
 
         Route::get('{slug}/editar', [ClienteController::class, 'edit'])->name('.edit');
-
+        
+        Route::delete('{slug}/destroy', [ClienteController::class, 'destroy'])->name('.destroy');
     });

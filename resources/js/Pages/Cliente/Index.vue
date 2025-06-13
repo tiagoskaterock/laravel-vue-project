@@ -1,9 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import { onMounted, nextTick } from 'vue';
 
-const props = defineProps({
+// defineProps direto no script setup
+const { clientes } = defineProps({
   clientes: Array,
 });
 
@@ -18,10 +19,17 @@ onMounted(() => {
     }
   });
 });
+
+function deleteCliente(cliente) {
+  if (confirm('Tem certeza que deseja excluir este cliente?')) {
+    router.delete(route('admin.clientes.destroy', { slug: cliente.slug }));
+  }
+}
 </script>
 
 <template>
   <AuthenticatedLayout>
+
     <Head title="Clientes" />
 
     <div class="content-wrapper">
@@ -47,7 +55,7 @@ onMounted(() => {
         <div class="container-fluid">
           <div class="card">
             <div class="card-body">
-              <div v-if="props.clientes.length === 0" class="text-gray-500">
+              <div v-if="clientes.length === 0" class="text-gray-500">
                 Nenhum cliente encontrado.
               </div>
               <table v-else id="clientes-table" class="table table-bordered table-striped">
@@ -61,26 +69,27 @@ onMounted(() => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="cliente in props.clientes" :key="cliente.id">
+                  <tr v-for="cliente in clientes" :key="cliente.id">
                     <td>{{ cliente.nome }}</td>
                     <td>{{ cliente.email }}</td>
                     <td>{{ cliente.telefone || '—' }}</td>
                     <td>{{ new Date(cliente.created_at).toLocaleDateString() }}</td>
                     <td>
-                      <Link
-                        :href="route('admin.clientes.show', { slug: cliente.slug })"
-                        title="Visualizar"
-                        class="btn btn-xs btn-info mr-1"
-                      >
+                      <Link :href="route('admin.clientes.show', { slug: cliente.slug })" title="Visualizar"
+                        class="btn btn-xs btn-info mr-1">
                         <i class="fas fa-eye"></i>
                       </Link>
-                      <Link
-                        :href="route('admin.clientes.edit', { slug: cliente.slug })"
-                        title="Editar"
-                        class="btn btn-xs btn-primary"
-                      >
+                      <Link :href="route('admin.clientes.edit', { slug: cliente.slug })" title="Editar"
+                        class="btn btn-xs btn-primary mr-1">
                         <i class="fas fa-edit"></i>
                       </Link>
+
+                      <form @submit.prevent="deleteCliente(cliente)" class="d-inline">
+                        <button type="submit" class="btn btn-xs btn-danger" title="Excluir">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </form>
+
                     </td>
                   </tr>
                 </tbody>

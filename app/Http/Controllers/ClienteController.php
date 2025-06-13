@@ -39,4 +39,16 @@ class ClienteController extends Controller
             'cliente' => $cliente,
         ]);
     }
+
+    public function destroy(string $slug)
+    {
+        $cliente = Cliente::where('slug', $slug)->first();
+        $cliente->delete();
+
+        return redirect()->route('admin.clientes');
+
+        // return Inertia::render('Cliente/Index', [
+        //     'cliente' => $cliente,
+        // ]);
+    }
 }
