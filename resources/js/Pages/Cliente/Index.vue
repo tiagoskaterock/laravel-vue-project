@@ -1,41 +1,28 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { onMounted, nextTick } from 'vue';
 
-// defineProps direto no script setup
 const { clientes } = defineProps({
-  clientes: Array,
-});
-
-onMounted(() => {
-  nextTick(() => {
-    if (window.$ && window.$.fn.DataTable) {
-      const table = window.$('#clientes-table').DataTable({
-        language: {
-          url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json'
-        }
-      });
-
-      // Ao excluir um cliente, atualiza a tabela
-      router.afterEach(() => {
-        table.destroy();
-        table.clear().rows.add(clientes).draw();
-      });
-    }
-  });
+  clientes: Object, // Agora clientes é um objeto de paginação, não um array
 });
 
 function deleteCliente(cliente) {
   if (confirm('Tem certeza que deseja excluir este cliente?')) {
-    router.delete(route('admin.clientes.destroy', { slug: cliente.slug }));
+    router.delete(route('admin.clientes.destroy', { slug: cliente.slug }), {
+      preserveScroll: true,
+      onSuccess: () => {
+        // Recarrega a página atual após exclusão
+        router.visit(route('admin.clientes'), {
+          preserveScroll: true
+        });
+      }
+    });
   }
 }
 </script>
 
 <template>
   <AuthenticatedLayout>
-
     <Head title="Clientes" />
 
     <div class="content-wrapper">
@@ -61,10 +48,11 @@ function deleteCliente(cliente) {
         <div class="container-fluid">
           <div class="card">
             <div class="card-body">
-              <div v-if="clientes.length === 0" class="text-gray-500">
+              <div v-if="clientes.data.length === 0" class="text-gray-500">
                 Nenhum cliente encontrado.
               </div>
-              <table v-else id="clientes-table" class="table table-bordered table-striped">
+
+              <table v-else class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th>Nome</th>
@@ -75,7 +63,7 @@ function deleteCliente(cliente) {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="cliente in clientes" :key="cliente.id">
+                  <tr v-for="cliente in clientes.data" :key="cliente.id">
                     <td>{{ cliente.nome }}</td>
                     <td>{{ cliente.email }}</td>
                     <td>{{ cliente.telefone || '—' }}</td>
@@ -95,20 +83,29 @@ function deleteCliente(cliente) {
                           <i class="fas fa-trash"></i>
                         </button>
                       </form>
-
                     </td>
                   </tr>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Telefone</th>
-                    <th>Criado em</th>
-                    <th>Ações</th>
-                  </tr>
-                </tfoot>
               </table>
+
+              <!-- Paginação -->
+              <div class="mt-3">
+                <ul class="pagination">
+                  <li
+                    v-for="link in clientes.links"
+                    :key="link.label"
+                    :class="['page-item', { active: link.active, disabled: !link.url }]"
+                  >
+                    <button
+                      class="page-link"
+                      v-html="link.label"
+                      :disabled="!link.url"
+                      @click="link.url && router.visit(link.url, { preserveScroll: true })"
+                    ></button>
+                  </li>
+                </ul>
+              </div>
+
             </div>
           </div>
         </div>

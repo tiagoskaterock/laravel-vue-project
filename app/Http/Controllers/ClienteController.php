@@ -12,7 +12,7 @@ class ClienteController extends Controller
     {
         $clientes = Cliente::
             orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         return Inertia::render('Cliente/Index', [
             'clientes' => $clientes,
@@ -22,8 +22,7 @@ class ClienteController extends Controller
     public function show(string $slug)
     {
         $cliente = Cliente::
-            with('user')
-            ->where('slug', $slug)
+            where('slug', $slug)
             ->first();
 
         return Inertia::render('Cliente/Show', [
