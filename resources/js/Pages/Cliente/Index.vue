@@ -11,10 +11,16 @@ const { clientes } = defineProps({
 onMounted(() => {
   nextTick(() => {
     if (window.$ && window.$.fn.DataTable) {
-      window.$('#clientes-table').DataTable({
+      const table = window.$('#clientes-table').DataTable({
         language: {
           url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json'
         }
+      });
+
+      // Ao excluir um cliente, atualiza a tabela
+      router.afterEach(() => {
+        table.destroy();
+        table.clear().rows.add(clientes).draw();
       });
     }
   });
