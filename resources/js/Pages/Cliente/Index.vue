@@ -46,8 +46,17 @@ function deleteCliente(cliente) {
 
       <section class="content pt-3">
         <div class="container-fluid">
+
+          <Link :href="route('admin.clientes.create')" title="Adicionar Novo Cliente"
+            class="btn btn-sm btn-primary mb-2">
+            <i class="fas fa-plus"></i>
+            Adicionar
+          </Link>
+
           <div class="card">
+
             <div class="card-body">
+
               <div v-if="clientes.data.length === 0" class="text-gray-500">
                 Nenhum cliente encontrado.
               </div>
@@ -69,10 +78,12 @@ function deleteCliente(cliente) {
                     <td>{{ cliente.telefone || '—' }}</td>
                     <td>{{ new Date(cliente.created_at).toLocaleDateString() }}</td>
                     <td>
+
                       <Link :href="route('admin.clientes.show', { slug: cliente.slug })" title="Visualizar"
                         class="btn btn-xs btn-info mr-1">
                         <i class="fas fa-eye"></i>
                       </Link>
+
                       <Link :href="route('admin.clientes.edit', { slug: cliente.slug })" title="Editar"
                         class="btn btn-xs btn-primary mr-1">
                         <i class="fas fa-edit"></i>
@@ -83,6 +94,7 @@ function deleteCliente(cliente) {
                           <i class="fas fa-trash"></i>
                         </button>
                       </form>
+
                     </td>
                   </tr>
                 </tbody>

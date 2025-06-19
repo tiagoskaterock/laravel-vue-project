@@ -10,6 +10,8 @@ Route::middleware(['auth', 'verified'])
 
         Route::get('/', [ClienteController::class, 'index'])->name('');
 
+        Route::get('/adicionar', [ClienteController::class, 'create'])->name('.create');
+
         Route::get('{slug}', [ClienteController::class, 'show'])->name('.show');
 
         Route::get('{slug}/editar', [ClienteController::class, 'edit'])->name('.edit');

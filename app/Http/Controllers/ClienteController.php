@@ -19,6 +19,11 @@ class ClienteController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return Inertia::render('Cliente/Create');
+    }
+
     public function show(string $slug)
     {
         $cliente = Cliente::

@@ -10,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <Head :title="cliente.title" />
+  <Head :title="cliente.nome" />
 
   <AuthenticatedLayout>
     <div class="content-wrapper">
@@ -26,9 +26,9 @@ const props = defineProps({
               <ol class="breadcrumb float-sm-right">
                 <Breadcrumb route='/admin/dashboard' title="Dashboard" />
 
-                <Breadcrumb route='/admin/blog' title="Blog" />
+                <Breadcrumb route='/admin/clientes' title="Clientes" />
 
-                <BreadcrumbActive :title='cliente.title' />
+                <BreadcrumbActive :title='cliente.nome' />
               </ol>
             </div>
           </div>

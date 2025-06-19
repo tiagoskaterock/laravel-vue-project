@@ -10,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <Head :title="cliente.nome" />
+  <Head title="Adicionar" />
 
   <AuthenticatedLayout>
     <div class="content-wrapper">
@@ -20,15 +20,15 @@ const props = defineProps({
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-4">
-              <h1>Visualizando cliente</h1>
+              <h1>Adicionar</h1>
             </div>
             <div class="col-sm-8">
               <ol class="breadcrumb float-sm-right">
                 <Breadcrumb route='/admin/dashboard' title="Dashboard" />
 
-                <Breadcrumb route='/admin/blog' title="Blog" />
+                <Breadcrumb route='/admin/clientes' title="Clientes" />
 
-                <BreadcrumbActive :title='cliente.title' />
+                <BreadcrumbActive title="Adicionar" />
               </ol>
             </div>
           </div>
@@ -43,7 +43,7 @@ const props = defineProps({
 
             <!-- Título -->
             <div class="card-header">
-              <h3 class="card-title font-weight-bold">{{ cliente.title }}</h3>
+              <!-- <h3 class="card-title font-weight-bold">{{ cliente.title }}</h3> -->
             </div>
 
             <div class="card-body">
@@ -51,7 +51,7 @@ const props = defineProps({
               <!-- Conteúdo -->
               <div class="pt-3">
                 <p class="mb-0" style="white-space: pre-line;">
-                  {{ cliente.content }}
+                  <!-- {{ cliente.content }} -->
                 </p>
               </div>
 
@@ -60,19 +60,19 @@ const props = defineProps({
 
             <div class="card-footer">
               <!-- Autor e data -->
-              <p class="text-muted pt-3 text-right">
+<!--               <p class="text-muted pt-3 text-right">
                 Por <strong>{{ cliente.user?.name || 'Desconhecido' }}</strong> ·
                 {{ new Date(cliente.created_at).toLocaleDateString() }}
-              </p>
+              </p> -->
 
               <p>
-                <Link
+<!--                 <Link
                   :href="route('admin.blog.edit', { slug: cliente.slug })"
                   title="Editar"
                   class="btn btn-primary"
                 >
                   <i class="fas fa-edit"></i> Editar
-                </Link>
+                </Link> -->
               </p>
             </div>
             <!-- fim-card-footer -->
