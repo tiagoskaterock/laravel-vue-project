@@ -78,3 +78,6 @@ Siga os passos abaixo para rodar o projeto localmente:
 
 #### Editar Post
 <img src="public/img/editar-post.png" alt="Editar Post" />
+
+#### Excluir Cliente
+<img src="public/img/exclusao.png" alt="Excluir Cliente" />

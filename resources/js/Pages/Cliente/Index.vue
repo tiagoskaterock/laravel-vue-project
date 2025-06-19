@@ -1,23 +1,42 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
+import Swal from 'sweetalert2';
 
 const { clientes } = defineProps({
-  clientes: Object, // Agora clientes é um objeto de paginação, não um array
+  clientes: Object,
 });
 
 function deleteCliente(cliente) {
-  if (confirm('Tem certeza que deseja excluir este cliente?')) {
-    router.delete(route('admin.clientes.destroy', { id: cliente.id }), {
-      preserveScroll: true,
-      onSuccess: () => {
-        // Recarrega a página atual após exclusão
-        router.visit(route('admin.clientes'), {
-          preserveScroll: true
-        });
-      }
-    });
-  }
+  Swal.fire({
+    title: 'Excluir cliente?',
+    text: `Tem certeza que deseja excluir "${cliente.nome}"?`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sim, excluir',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      router.delete(route('admin.clientes.destroy', { id: cliente.id }), {
+        preserveScroll: true,
+        onSuccess: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Excluído!',
+            text: 'O cliente foi excluído com sucesso.',
+            timer: 1500,
+            showConfirmButton: false
+          });
+          router.visit(route('admin.clientes'), { preserveScroll: true });
+        },
+        onError: () => {
+          Swal.fire('Erro!', 'Não foi possível excluir o cliente.', 'error');
+        }
+      });
+    }
+  });
 }
 </script>
 
