@@ -24,29 +24,27 @@ class ClienteController extends Controller
         return Inertia::render('Cliente/Create');
     }
 
-    public function show(string $slug)
+    public function show(string $id)
     {
-        $cliente = Cliente::
-            where('slug', $slug)
-            ->first();
+        $cliente = Cliente::findOrFail($id);
 
         return Inertia::render('Cliente/Show', [
             'cliente' => $cliente,
         ]);
     }
 
-    public function edit(string $slug)
+    public function edit(string $id)
     {
-        $cliente = Cliente::where('slug', $slug)->first();
+        $cliente = Cliente::where('id', $id)->first();
 
         return Inertia::render('Cliente/Edit', [
             'cliente' => $cliente,
         ]);
     }
 
-    public function destroy(string $slug)
+    public function destroy(string $id)
     {
-        $cliente = Cliente::where('slug', $slug)->first();
+        $cliente = Cliente::where('id', $id)->first();
         $cliente->delete();
 
         return redirect()->route('admin.clientes');

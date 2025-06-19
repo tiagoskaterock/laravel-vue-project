@@ -8,7 +8,7 @@ const { clientes } = defineProps({
 
 function deleteCliente(cliente) {
   if (confirm('Tem certeza que deseja excluir este cliente?')) {
-    router.delete(route('admin.clientes.destroy', { slug: cliente.slug }), {
+    router.delete(route('admin.clientes.destroy', { id: cliente.id }), {
       preserveScroll: true,
       onSuccess: () => {
         // Recarrega a página atual após exclusão
@@ -47,7 +47,7 @@ function deleteCliente(cliente) {
       <section class="content pt-3">
         <div class="container-fluid">
 
-          <Link :href="route('admin.clientes.create')" title="Adicionar Novo Cliente"
+          <Link :href="route('admin.clientes.create')" title="Adicionar Cliente"
             class="btn btn-sm btn-primary mb-2">
             <i class="fas fa-plus"></i>
             Adicionar
@@ -79,12 +79,12 @@ function deleteCliente(cliente) {
                     <td>{{ new Date(cliente.created_at).toLocaleDateString() }}</td>
                     <td>
 
-                      <Link :href="route('admin.clientes.show', { slug: cliente.slug })" title="Visualizar"
+                      <Link :href="route('admin.clientes.show', { id: cliente.id, slug: cliente.slug })" title="Visualizar"
                         class="btn btn-xs btn-info mr-1">
                         <i class="fas fa-eye"></i>
                       </Link>
 
-                      <Link :href="route('admin.clientes.edit', { slug: cliente.slug })" title="Editar"
+                      <Link :href="route('admin.clientes.edit', { id: cliente.id, slug: cliente.slug })" title="Editar"
                         class="btn btn-xs btn-primary mr-1">
                         <i class="fas fa-edit"></i>
                       </Link>
