@@ -35,7 +35,7 @@ class ClienteController extends Controller
 
     public function edit(string $id)
     {
-        $cliente = Cliente::where('id', $id)->first();
+        $cliente = Cliente::findOrFail($id);
 
         return Inertia::render('Cliente/Edit', [
             'cliente' => $cliente,

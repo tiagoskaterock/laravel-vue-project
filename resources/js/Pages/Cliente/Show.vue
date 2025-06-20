@@ -5,17 +5,17 @@ import Breadcrumb from '@/Components/Breadcrumb.vue';
 import BreadcrumbActive from '@/Components/BreadcrumbActive.vue';
 
 const props = defineProps({
-  cliente: Object,
+  cliente: Object, // Esta propriedade 'cliente' será passada para o componente
 });
 </script>
 
 <template>
-  <Head :title="cliente.nome" />
+  <Head :title="cliente.nome" /> <!-- Define o título da página com o nome do cliente -->
 
   <AuthenticatedLayout>
     <div class="content-wrapper">
 
-      <!-- Header -->
+      <!-- Cabeçalho -->
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
@@ -25,69 +25,79 @@ const props = defineProps({
             <div class="col-sm-8">
               <ol class="breadcrumb float-sm-right">
                 <Breadcrumb route='/admin/dashboard' title="Dashboard" />
-
                 <Breadcrumb route='/admin/clientes' title="Clientes" />
-
                 <BreadcrumbActive :title='cliente.nome' />
               </ol>
             </div>
           </div>
         </div>
       </section>
-      <!-- fim content-header -->
+      <!-- Fim do cabeçalho -->
 
-      <!-- Main content -->
+      <!-- Conteúdo principal -->
       <section class="content">
         <div class="container-fluid">
           <div class="card">
 
-            <!-- Título -->
+            <!-- Título do Card -->
             <div class="card-header">
-              <h3 class="card-title font-weight-bold">{{ cliente.title }}</h3>
+              <h3 class="card-title font-weight-bold">{{ cliente.nome }}</h3>
             </div>
 
             <div class="card-body">
               
-              <!-- Conteúdo -->
+              <!-- Detalhes do Cliente -->
               <div class="pt-3">
-                <p class="mb-0" style="white-space: pre-line;">
-                  {{ cliente.content }}
-                </p>
+                <p><strong>E-mail:</strong> {{ cliente.email }}</p>
+                <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+                <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+                <p><strong>Cidade:</strong> {{ cliente.cidade }}</p>
+                <p><strong>Estado:</strong> {{ cliente.estado }}</p>
+                <p><strong>País:</strong> {{ cliente.pais }}</p>
               </div>
 
             </div>
-            <!-- fim card-body -->
+            <!-- Fim do corpo do Card -->
 
             <div class="card-footer">
-              <!-- Autor e data -->
+              <!-- Informações adicionais -->
               <p class="text-muted pt-3 text-right">
-                Por <strong>{{ cliente.user?.name || 'Desconhecido' }}</strong> ·
+                Cadastrado por <strong>{{ cliente.user?.name || 'Desconhecido' }}</strong> ·
                 {{ new Date(cliente.created_at).toLocaleDateString() }}
               </p>
 
+              <!-- Botão de Edição -->
               <p>
                 <Link
-                  :href="route('admin.blog.edit', { slug: cliente.slug })"
+                  :href="route('admin.clientes')"
+                  title="Voltar para Listagem"
+                  class="btn btn-info btn-sm"
+                >
+                  <i class="fas fa-list"></i> Voltar para Listagem
+                </Link>
+
+                <Link
+                  :href="route('admin.clientes.edit', { id: cliente.id, slug: cliente.slug })"
                   title="Editar"
-                  class="btn btn-primary"
+                  class="btn btn-primary btn-sm ml-1"
                 >
                   <i class="fas fa-edit"></i> Editar
                 </Link>
               </p>
             </div>
-            <!-- fim-card-footer -->
+            <!-- Fim do rodapé do Card -->
 
           </div>
-          <!-- fim-card -->
+          <!-- Fim do Card -->
 
         </div>
-        <!-- fim container-fluid -->
+        <!-- Fim do container fluid -->
 
       </section>
-      <!-- fim content -->
+      <!-- Fim da seção de conteúdo -->
 
     </div>
-    <!-- fim content-wrapper -->
+    <!-- Fim do content wrapper -->
 
   </AuthenticatedLayout>
 
