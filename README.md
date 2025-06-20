@@ -81,3 +81,6 @@ Siga os passos abaixo para rodar o projeto localmente:
 
 #### Excluir Cliente
 <img src="public/img/exclusao.png" alt="Excluir Cliente" />
+
+#### Detalhes Cliente
+<img src="public/img/detalhes.png" alt="Excluir Cliente" />
