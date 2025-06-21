@@ -1,12 +1,24 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
-import Breadcrumb from '@/Components/Breadcrumb.vue';
-import BreadcrumbActive from '@/Components/BreadcrumbActive.vue';
+import { ref } from 'vue'
+import { useForm } from '@inertiajs/vue3'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import { Head } from '@inertiajs/vue3'
+import Breadcrumb from '@/Components/Breadcrumb.vue'
+import BreadcrumbActive from '@/Components/BreadcrumbActive.vue'
 
-const props = defineProps({
-  cliente: Object,
-});
+const form = useForm({
+  nome: '',
+  email: '',
+  telefone: '',
+  endereco: '',
+  cidade: '',
+  estado: '',
+  pais: '',
+})
+
+function submit() {
+  form.post('/admin/clientes/store')
+}
 </script>
 
 <template>
@@ -14,81 +26,76 @@ const props = defineProps({
 
   <AuthenticatedLayout>
     <div class="content-wrapper">
-
       <!-- Header -->
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-4">
-              <h1>Adicionar</h1>
+              <h1>Adicionar Cliente</h1>
             </div>
             <div class="col-sm-8">
               <ol class="breadcrumb float-sm-right">
-                <Breadcrumb route='/admin/dashboard' title="Dashboard" />
-
-                <Breadcrumb route='/admin/clientes' title="Clientes" />
-
+                <Breadcrumb route="/admin/dashboard" title="Dashboard" />
+                <Breadcrumb route="/admin/clientes" title="Clientes" />
                 <BreadcrumbActive title="Adicionar" />
               </ol>
             </div>
           </div>
         </div>
       </section>
-      <!-- fim content-header -->
 
-      <!-- Main content -->
+      <!-- Conteúdo principal -->
       <section class="content">
         <div class="container-fluid">
           <div class="card">
-
-            <!-- Título -->
-            <div class="card-header">
-              <!-- <h3 class="card-title font-weight-bold">{{ cliente.title }}</h3> -->
-            </div>
-
             <div class="card-body">
-              
-              <!-- Conteúdo -->
-              <div class="pt-3">
-                <p class="mb-0" style="white-space: pre-line;">
-                  <!-- {{ cliente.content }} -->
-                </p>
-              </div>
+              <form @submit.prevent="submit">
+                <div class="form-group mb-3">
+                  <label for="nome">Nome</label>
+                  <input v-model="form.nome" type="text" id="nome" class="form-control" />
+                  <span class="text-danger text-sm" v-if="form.errors.nome">{{ form.errors.nome }}</span>
+                </div>
 
+                <div class="form-group mb-3">
+                  <label for="email">Email</label>
+                  <input v-model="form.email" type="email" id="email" class="form-control" />
+                  <span class="text-danger text-sm" v-if="form.errors.email">{{ form.errors.email }}</span>
+                </div>
+
+                <div class="form-group mb-3">
+                  <label for="telefone">Telefone</label>
+                  <input v-model="form.telefone" type="text" id="telefone" class="form-control" />
+                </div>
+
+                <div class="form-group mb-3">
+                  <label for="endereco">Endereço</label>
+                  <input v-model="form.endereco" type="text" id="endereco" class="form-control" />
+                </div>
+
+                <div class="form-group mb-3">
+                  <label for="cidade">Cidade</label>
+                  <input v-model="form.cidade" type="text" id="cidade" class="form-control" />
+                </div>
+
+                <div class="form-group mb-3">
+                  <label for="estado">Estado</label>
+                  <input v-model="form.estado" type="text" id="estado" class="form-control" />
+                </div>
+
+                <div class="form-group mb-3">
+                  <label for="pais">País</label>
+                  <input v-model="form.pais" type="text" id="pais" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-success" :disabled="form.processing">
+                  <i class="fas fa-save"></i>
+                  Salvar
+                </button>
+              </form>
             </div>
-            <!-- fim card-body -->
-
-            <div class="card-footer">
-              <!-- Autor e data -->
-<!--               <p class="text-muted pt-3 text-right">
-                Por <strong>{{ cliente.user?.name || 'Desconhecido' }}</strong> ·
-                {{ new Date(cliente.created_at).toLocaleDateString() }}
-              </p> -->
-
-              <p>
-<!--                 <Link
-                  :href="route('admin.blog.edit', { slug: cliente.slug })"
-                  title="Editar"
-                  class="btn btn-primary"
-                >
-                  <i class="fas fa-edit"></i> Editar
-                </Link> -->
-              </p>
-            </div>
-            <!-- fim-card-footer -->
-
           </div>
-          <!-- fim-card -->
-
         </div>
-        <!-- fim container-fluid -->
-
       </section>
-      <!-- fim content -->
-
     </div>
-    <!-- fim content-wrapper -->
-
   </AuthenticatedLayout>
-
 </template>

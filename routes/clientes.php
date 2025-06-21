@@ -12,6 +12,8 @@ Route::middleware(['auth', 'verified'])
 
         Route::get('/adicionar', [ClienteController::class, 'create'])->name('.create');
 
+        Route::post('/store', [ClienteController::class, 'store'])->name('.store');
+
         Route::get('{id}/{slug}', [ClienteController::class, 'show'])->name('.show');
 
         Route::get('{id}/editar/{slug}', [ClienteController::class, 'edit'])->name('.edit');
