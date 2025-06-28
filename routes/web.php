@@ -25,3 +25,5 @@ require __DIR__.'/blog.php';
 require __DIR__.'/clientes.php';
 
 require __DIR__.'/dashboard.php';
+
+require __DIR__.'/configuracoes.php';
