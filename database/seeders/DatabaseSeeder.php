@@ -3,13 +3,14 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Configuracao;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Inicia um bando de dados da aplicação
+     * Inicia um banco de dados da aplicação
      */
     public function run(): void
     {
@@ -19,5 +20,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => Hash::make('12345678'),
         ]);
+
+        // Cria um registro em configurações
+        Configuracao::factory()->create();
     }
 }
