@@ -75,7 +75,7 @@ const logout = () => {
               title="Perfil"
               href="/admin/configuracoes"
               class="nav-link"
-              :class="{ active: route().current('admin.configuracoes') }"
+              :class="{ active: route().current('admin.configuracoes*') }"
             >
               <i class="nav-icon fas fa-cogs"></i>
               <p>Configurações</p>

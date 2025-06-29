@@ -12,8 +12,31 @@ class ConfiguracoesController extends Controller
     {
         $config = Configuracao::first();
 
-        return Inertia::render('Configuracao/Configuracao', [
+        return Inertia::render('Configuracao/Index', [
             'config' => $config,
         ]);
     }
+
+    public function edit()
+    {
+        $config = Configuracao::first();
+
+        return Inertia::render('Configuracao/Edit', [
+            'config' => $config,
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $config = Configuracao::first();
+
+        $config->update($request->only([
+            'nome_da_empresa',
+            'nome_do_site',
+            'nome_do_aplicativo',
+        ]));
+
+        return redirect()->route('admin.configuracoes')->with('success', 'Configurações atualizadas.');
+    }
+
 }

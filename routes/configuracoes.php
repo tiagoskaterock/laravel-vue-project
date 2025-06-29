@@ -9,4 +9,8 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
 
         Route::get('/', [ConfiguracoesController::class, 'index'])->name('');
+
+        Route::get('/editar', [ConfiguracoesController::class, 'edit'])->name('.edit');
+
+        Route::put('/update', [ConfiguracoesController::class, 'update'])->name('.update');
     });
