@@ -41,8 +41,7 @@ class ClienteController extends Controller
 
         Cliente::create($validated);
 
-        return redirect()->route('admin.clientes')
-            ->with('success', 'Cliente criado com sucesso!');
+        return Inertia::location(route('admin.clientes') . '?success=Cliente criado com sucesso!');
     }
 
     public function show(string $id)

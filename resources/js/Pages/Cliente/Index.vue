@@ -1,10 +1,29 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
+import { onMounted } from 'vue';
 
 const { clientes } = defineProps({
   clientes: Object,
+});
+
+const page = usePage();
+
+// Exibe SweetAlert se houver uma mensagem de sucesso
+onMounted(() => {
+  const params = new URLSearchParams(window.location.search);
+  const successMessage = params.get('success');
+
+  if (successMessage) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Sucesso!',
+      text: successMessage,
+      timer: 2000,
+      showConfirmButton: false,
+    });
+  }
 });
 
 function deleteCliente(cliente) {
