@@ -12,9 +12,12 @@ class ConfiguracaoFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome_da_empresa' => $this->faker->company,
-            'nome_do_site' => $this->faker->domainName,
-            'nome_do_aplicativo' => $this->faker->word,
+            'empresa' => $this->faker->company,
+            'site' => $this->faker->domainName,
+            'aplicativo' => $this->faker->word,
+            'keywords' => implode(', ', $this->faker->words(5)),
+            'description' => $this->faker->sentence(10),
+            'author' => $this->faker->name,
         ];
     }
 }

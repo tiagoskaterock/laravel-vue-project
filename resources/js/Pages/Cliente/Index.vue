@@ -86,7 +86,7 @@ function deleteCliente(cliente) {
         <div class="container-fluid">
 
           <Link :href="route('admin.clientes.create')" title="Adicionar Cliente"
-            class="btn btn-sm btn-primary mb-2">
+            class="btn btn-primary mb-2">
             <i class="fas fa-plus"></i>
             Adicionar
           </Link>
