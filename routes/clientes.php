@@ -17,6 +17,8 @@ Route::middleware(['auth', 'verified'])
         Route::get('{id}/{slug}', [ClienteController::class, 'show'])->name('.show');
 
         Route::get('{id}/editar/{slug}', [ClienteController::class, 'edit'])->name('.edit');
+
+        Route::put('{id}/update', [ClienteController::class, 'update'])->name('.update');
         
         Route::delete('{id}/destroy', [ClienteController::class, 'destroy'])->name('.destroy');
     });

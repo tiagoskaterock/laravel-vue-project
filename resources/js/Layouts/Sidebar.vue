@@ -49,7 +49,7 @@ const logout = () => {
               title="Clientes"
               href="/admin/clientes"
               class="nav-link"
-              :class="{ active: route().current('admin.clientes') }"
+              :class="{ active: route().current('admin.clientes*') }"
             >
               <i class="nav-icon fas fa-user-tie"></i>
               <p>Clientes</p>

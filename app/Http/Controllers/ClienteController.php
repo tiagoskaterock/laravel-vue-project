@@ -62,15 +62,29 @@ class ClienteController extends Controller
         ]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $cliente = Cliente::findOrFail($id);
+
+        $validated = $request->validate([
+            'nome'     => 'required|string|max:255',
+            'email'    => 'required|email|max:255|unique:clientes,email,' . $cliente->id,
+            'telefone' => 'nullable|string|max:20',
+            'endereco' => 'nullable|string|max:255',
+            'cidade'   => 'nullable|string|max:100',
+            'estado'   => 'nullable|string|max:100',
+            'pais'     => 'nullable|string|max:100',
+        ]);
+
+        $cliente->update($validated);
+
+        return Inertia::location(route('admin.clientes') . '?success=Cliente atualizado com sucesso!');
+    }
+
     public function destroy(string $id)
     {
         $cliente = Cliente::where('id', $id)->first();
         $cliente->delete();
-
         return redirect()->route('admin.clientes');
-
-        // return Inertia::render('Cliente/Index', [
-        //     'cliente' => $cliente,
-        // ]);
     }
 }

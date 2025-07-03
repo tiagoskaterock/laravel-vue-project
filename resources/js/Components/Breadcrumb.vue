@@ -14,7 +14,7 @@ defineProps({
 </script>
 
 <template>
-  <li class="breadcrumb-item">
+  <li class="breadcrumb-item" :title="title">
     <Link :href="typeof route === 'string' ? route : route.url">
       {{ title }}
     </Link>

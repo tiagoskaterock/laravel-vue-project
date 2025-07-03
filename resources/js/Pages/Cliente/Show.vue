@@ -1,16 +1,48 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import Breadcrumb from '@/Components/Breadcrumb.vue';
 import BreadcrumbActive from '@/Components/BreadcrumbActive.vue';
+import Swal from 'sweetalert2';
 
 const props = defineProps({
-  cliente: Object, // Esta propriedade 'cliente' será passada para o componente
+  cliente: Object,
 });
+
+function confirmDelete() {
+  Swal.fire({
+    title: 'Excluir cliente?',
+    text: `Tem certeza que deseja excluir "${props.cliente.nome}"?`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sim, excluir',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      router.delete(route('admin.clientes.destroy', { id: props.cliente.id }), {
+        onSuccess: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Excluído!',
+            text: 'O cliente foi excluído com sucesso.',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+          router.visit(route('admin.clientes'), { preserveScroll: true });
+        },
+        onError: () => {
+          Swal.fire('Erro!', 'Não foi possível excluir o cliente.', 'error');
+        }
+      });
+    }
+  });
+}
 </script>
 
 <template>
-  <Head :title="cliente.nome" /> <!-- Define o título da página com o nome do cliente -->
+  <Head :title="cliente.nome" />
 
   <AuthenticatedLayout>
     <div class="content-wrapper">
@@ -45,7 +77,6 @@ const props = defineProps({
             </div>
 
             <div class="card-body">
-              
               <!-- Detalhes do Cliente -->
               <div class="pt-3">
                 <p><strong>E-mail:</strong> {{ cliente.email }}</p>
@@ -55,7 +86,6 @@ const props = defineProps({
                 <p><strong>Estado:</strong> {{ cliente.estado }}</p>
                 <p><strong>País:</strong> {{ cliente.pais }}</p>
               </div>
-
             </div>
             <!-- Fim do corpo do Card -->
 
@@ -66,12 +96,12 @@ const props = defineProps({
                 {{ new Date(cliente.created_at).toLocaleDateString() }}
               </p>
 
-              <!-- Botão de Edição -->
+              <!-- Botões de ação -->
               <p>
                 <Link
                   :href="route('admin.clientes')"
                   title="Voltar para Listagem"
-                  class="btn btn-info btn-sm"
+                  class="btn btn-info"
                 >
                   <i class="fas fa-list"></i> Voltar para Listagem
                 </Link>
@@ -79,20 +109,26 @@ const props = defineProps({
                 <Link
                   :href="route('admin.clientes.edit', { id: cliente.id, slug: cliente.slug })"
                   title="Editar"
-                  class="btn btn-primary btn-sm ml-1"
+                  class="btn btn-primary ml-1"
                 >
                   <i class="fas fa-edit"></i> Editar
                 </Link>
+
+                <button
+                  class="btn btn-danger ml-1"
+                  @click="confirmDelete"
+                  title="Excluir"
+                >
+                  <i class="fas fa-trash"></i> Excluir
+                </button>
               </p>
             </div>
             <!-- Fim do rodapé do Card -->
 
           </div>
           <!-- Fim do Card -->
-
         </div>
         <!-- Fim do container fluid -->
-
       </section>
       <!-- Fim da seção de conteúdo -->
 
@@ -100,5 +136,4 @@ const props = defineProps({
     <!-- Fim do content wrapper -->
 
   </AuthenticatedLayout>
-
 </template>
