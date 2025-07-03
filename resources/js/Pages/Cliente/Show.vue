@@ -78,34 +78,20 @@ function confirmDelete() {
 
             <div class="card-body">
               <!-- Detalhes do Cliente -->
-              <div class="pt-3">
-                <p><strong>E-mail:</strong> {{ cliente.email }}</p>
-                <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
-                <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
-                <p><strong>Cidade:</strong> {{ cliente.cidade }}</p>
-                <p><strong>Estado:</strong> {{ cliente.estado }}</p>
-                <p><strong>País:</strong> {{ cliente.pais }}</p>
+              <div class="pt-3 row">
+                <p class="col-md-6"><strong>E-mail:</strong> {{ cliente.email }}</p>
+                <p class="col-md-6"><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+                <p class="col-md-6"><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+                <p class="col-md-6"><strong>Cidade:</strong> {{ cliente.cidade }}</p>
+                <p class="col-md-6"><strong>Estado:</strong> {{ cliente.estado }}</p>
+                <p class="col-md-6"><strong>País:</strong> {{ cliente.pais }}</p>
               </div>
             </div>
             <!-- Fim do corpo do Card -->
 
             <div class="card-footer">
-              <!-- Informações adicionais -->
-              <p class="text-muted pt-3 text-right">
-                Cadastrado por <strong>{{ cliente.user?.name || 'Desconhecido' }}</strong> ·
-                {{ new Date(cliente.created_at).toLocaleDateString() }}
-              </p>
-
               <!-- Botões de ação -->
               <p>
-                <Link
-                  :href="route('admin.clientes')"
-                  title="Voltar para Listagem"
-                  class="btn btn-info"
-                >
-                  <i class="fas fa-list"></i> Voltar para Listagem
-                </Link>
-
                 <Link
                   :href="route('admin.clientes.edit', { id: cliente.id, slug: cliente.slug })"
                   title="Editar"

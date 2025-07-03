@@ -9,11 +9,8 @@
     {{-- jQuery --}}
     <script src="{{ asset('lte/plugins/jquery/jquery.js') }}"></script>
 
-    <!-- DataTables -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
-    <script src="{{ asset('lte/plugins/datatables/jquery.dataTables.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
 
     @routes
     @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
