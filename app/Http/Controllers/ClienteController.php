@@ -86,9 +86,15 @@ class ClienteController extends Controller
             'pais'     => 'nullable|string|max:100',
         ]);
 
-        $cliente->update($validated);
+        $cliente->fill($validated);
 
-        return Inertia::location(route('admin.clientes') . '?success=Cliente atualizado com sucesso!');
+        if ($cliente->isDirty()) {
+            $cliente->save();
+            return Inertia::location(route('admin.clientes') . '?success=Cliente atualizado com sucesso!');
+        } else {
+            return Inertia::location(route('admin.clientes') . '?info=Nada foi modificado!');
+        }
+
     }
 
     public function destroy(string $id)

@@ -72,7 +72,23 @@ onMounted(() => {
       icon: 'success',
       title: 'Sucesso!',
       text: successMessage,
-      timer: 2000,
+      timer: 2500,
+      showConfirmButton: false,
+    })
+  }
+})
+
+// Mensagem de info
+onMounted(() => {
+  const params = new URLSearchParams(window.location.search)
+  const infoMessage = params.get('info')
+
+  if (infoMessage) {
+    Swal.fire({
+      icon: 'info',
+      title: 'Informação!',
+      text: infoMessage,
+      timer: 2500,
       showConfirmButton: false,
     })
   }
