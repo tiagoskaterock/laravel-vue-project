@@ -49,7 +49,7 @@ function deleteCliente(cliente) {
             icon: 'success',
             title: 'Excluído!',
             text: 'O cliente foi excluído com sucesso.',
-            timer: 1500,
+            timer: 2500,
             showConfirmButton: false
           })
           router.visit(route('admin.clientes'), { preserveScroll: true })
