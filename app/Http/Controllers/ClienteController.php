@@ -9,14 +9,24 @@ use Illuminate\Support\Str;
 
 class ClienteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $clientes = Cliente::
-            orderBy('created_at', 'desc')
-            ->paginate(10);
+        $query = Cliente::query();
+
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('nome', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('telefone', 'like', "%{$search}%");
+            });
+        }
+
+        $clientes = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
 
         return Inertia::render('Cliente/Index', [
             'clientes' => $clientes,
+            'page_title' => 'Clientes'
         ]);
     }
 

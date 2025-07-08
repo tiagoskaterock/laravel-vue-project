@@ -21,7 +21,7 @@ class ClienteFactory extends Factory
         $nome = $this->faker->name();
 
         // Gera uma data de criação entre 6 e 1 meses atrás
-        $createdAt = $this->faker->dateTimeBetween('-6 months', '-1 month');
+        $createdAt = $this->faker->dateTimeBetween('-36 months', '-1 month');
 
         // Define se o updated_at será igual ao created_at (50% de chance)
         $isSameUpdated = $this->faker->boolean(50);
