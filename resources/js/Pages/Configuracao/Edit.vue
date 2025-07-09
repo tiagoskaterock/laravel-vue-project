@@ -1,77 +1,125 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
+import Swal from 'sweetalert2';
+import Breadcrumb from '@/Components/Breadcrumb.vue';
+import BreadcrumbActive from '@/Components/BreadcrumbActive.vue';
 
-// Acessa os dados enviados pelo controller
-const config = usePage().props.config
+const config = ref(null)
 
 const form = useForm({
-  nome_da_empresa: config?.nome_da_empresa || '',
-  nome_do_site: config?.nome_do_site || '',
-  nome_do_aplicativo: config?.nome_do_aplicativo || '',
+  empresa: '',
+  site: '',
+  aplicativo: '',
 })
 
-// Envia os dados para a rota de atualização
+const loadConfig = async () => {
+  try {
+    const response = await fetch('/api/configuracoes');
+    if (!response.ok) throw new Error('Erro ao carregar dados');
+    const data = await response.json();
+    config.value = data;
+
+    // Preenche o formulário com os dados recebidos
+    form.empresa = data.empresa || '';
+    form.site = data.site || '';
+    form.aplicativo = data.aplicativo || '';
+  } catch (error) {
+    console.error('Erro na requisição:', error);
+  }
+}
+
+onMounted(() => {
+  loadConfig();
+});
+
 const submit = () => {
-  form.put(route('admin.configuracoes.update', config.id))
+  if (!config.value?.id) return;
+
+  form.put(route('admin.configuracoes.update'), {
+  });
 }
 </script>
 
 <template>
   <AuthenticatedLayout>
-    <Head title="Configurações" />
 
     <div class="content-wrapper">
+
+      <!-- Header -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <h1>Editar Configurações</h1>
+            </div>
+            <div class="col-sm-8">
+              <ol class="breadcrumb float-sm-right">
+                <Breadcrumb route="/admin/dashboard/" title="Dashboard" />
+                <Breadcrumb 
+                  route="/admin/configuracoes" 
+                  title="Configurações" />
+                <BreadcrumbActive title="Editar" />
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="content pt-3">
         <div class="container-fluid">
-          <h1 class="text-center mb-4">Editar Configurações</h1>
 
-          <div class="row justify-content-center">
-            <div class="col-md-8">
-              <div class="card shadow-sm">
-                <div class="card-body">
-                  <form @submit.prevent="submit">
-                    <div class="mb-3">
-                      <label class="form-label">Nome da Empresa</label>
-                      <input
-                        v-model="form.nome_da_empresa"
-                        type="text"
-                        class="form-control"
-                      />
-                    </div>
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <form @submit.prevent="submit" v-if="config" class="row">
 
-                    <div class="mb-3">
-                      <label class="form-label">Nome do Site</label>
-                      <input
-                        v-model="form.nome_do_site"
-                        type="text"
-                        class="form-control"
-                      />
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label">Nome do Aplicativo</label>
-                      <input
-                        v-model="form.nome_do_aplicativo"
-                        type="text"
-                        class="form-control"
-                      />
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                      <Link
-                        :href="route('admin.configuracoes')"
-                        class="btn btn-secondary"
-                      >
-                        <i class="fas fa-arrow-left"></i> Voltar
-                      </Link>
-
-                      <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Salvar
-                      </button>
-                    </div>
-                  </form>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label">
+                    <i class="fas fa-building me-1"></i>
+                    Nome da Empresa
+                  </label>
+                  <input
+                    v-model="form.empresa"
+                    type="text"
+                    class="form-control"
+                  />
                 </div>
+
+                <div class="mb-3 col-md-6">
+                  <label class="form-label">
+                    <i class="fas fa-globe me-1"></i>
+                    Nome do Site
+                  </label>
+                  <input
+                    v-model="form.site"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="mb-3 col-md-6">
+                  <label class="form-label">
+                    <i class="fas fa-mobile-alt me-1"></i>
+                    Nome do Aplicativo
+                  </label>
+                  <input
+                    v-model="form.aplicativo"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="col-12 d-flex justify-content-between mt-3">
+                  <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Salvar
+                  </button>
+                </div>
+              </form>
+
+              <div v-else class="text-center py-5">
+                <i class="fas fa-spinner fa-spin me-2"></i>
+                Carregando configurações...
               </div>
             </div>
           </div>

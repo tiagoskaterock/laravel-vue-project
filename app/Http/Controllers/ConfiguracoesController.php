@@ -28,15 +28,23 @@ class ConfiguracoesController extends Controller
 
     public function update(Request $request)
     {
-        $config = Configuracao::first();
+        $validated = $request->validate([
+            'empresa' => 'required|string|max:255',
+            'site' => 'required|string|max:255',
+            'aplicativo' => 'required|string|max:255',
+        ]);
 
-        $config->update($request->only([
-            'nome_da_empresa',
-            'nome_do_site',
-            'nome_do_aplicativo',
-        ]));
+        $config = Configuracao::firstOrFail();
 
-        return redirect()->route('admin.configuracoes')->with('success', 'Configurações atualizadas.');
+        $config->fill($validated);
+
+        if ($config->isDirty()) {
+            $config->save();
+            return Inertia::location(route('admin.configuracoes') . '?success=' . urlencode('Configurações atualizadas com sucesso!'));
+        } else {
+            // dd('else');
+            return Inertia::location(route('admin.configuracoes') . '?info=Nada foi modificado!');
+        }
     }
 
 }

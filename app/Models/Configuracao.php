@@ -12,9 +12,12 @@ class Configuracao extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nome_da_empresa',
-        'nome_do_site',
-        'nome_do_aplicativo'
+        'empresa',
+        'site',
+        'aplicativo',
+        'keywords',
+        'description',
+        'author'
     ];
 
 }

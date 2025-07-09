@@ -1,11 +1,44 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { onMounted, computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
+import Swal from 'sweetalert2';
 
 // Acessa os dados enviados pelo controller
 const config = computed(() => usePage().props.config);
+
+// Mensagem de sucesso
+onMounted(() => {
+  const params = new URLSearchParams(window.location.search)
+  const successMessage = params.get('success')
+
+  if (successMessage) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Sucesso!',
+      text: successMessage,
+      timer: 2500,
+      showConfirmButton: false,
+    })
+  }
+})
+
+// Mensagem de info
+onMounted(() => {
+  const params = new URLSearchParams(window.location.search)
+  const infoMessage = params.get('info')
+
+  if (infoMessage) {
+    Swal.fire({
+      icon: 'info',
+      title: 'Informação!',
+      text: infoMessage,
+      timer: 2500,
+      showConfirmButton: false,
+    })
+  }
+})
 </script>
 
 <template>
