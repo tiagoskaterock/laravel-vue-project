@@ -19,23 +19,5 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     @inertia
-
-    <script src="{{ asset('lte/plugins/datatables/jquery.dataTables.js') }}"></script>
-
-    <script src="{{ asset('lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-
-    <script src="{{ asset('lte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-
-    <script src="{{ asset('lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-
-    <script src="{{ asset('lte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-
-    <script src="{{ asset('lte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-
-    <script src="{{ asset('lte/plugins/datatables-buttons/js/buttons.html5.js') }}"></script>
-
-    <script src="{{ asset('lte/plugins/datatables-buttons/js/buttons.print.js') }}"></script>
-
-    <script src="{{ asset('lte/plugins/datatables-buttons/js/buttons.colVis.js') }}"></script>
 </body>
 </html>

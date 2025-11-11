@@ -69,6 +69,19 @@ const logout = () => {
             </Link>
           </li>
 
+          <!-- Imagens -->
+          <li class="nav-item">
+            <Link
+              title="Imagens"
+              href="/admin/imagens"
+              class="nav-link"
+              :class="{ active: route().current('admin.imagens') }"
+            >
+              <i class="nav-icon fas fa-images"></i>
+              <p>Imagens</p>
+            </Link>
+          </li>
+
           <!-- Configurações -->
           <li class="nav-item">
             <Link
